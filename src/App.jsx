@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import ScrollToTop from './services/components/ScrollToTop';
 import Navbar from './services/components/Navbar';
