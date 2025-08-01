@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div>
       {/* Top Bar */}
-      <div className="bg-warning text-white py-2">
+      <div className="bg-topheader text-white">
         <div className="container-fluid px-4 d-flex justify-content-between align-items-center">
           {/* Left: Phone */}
           <div className="d-flex align-items-center gap-2">
@@ -55,14 +55,10 @@ const Navbar = () => {
           {/* Center: Logo */}
           <div className="col-md-4 text-center mb-3 mb-md-0">
             <img
-              src="/logo.png"
+              src="/img/b-logo.webp"
               alt="Sadath Corporate"
-              style={{ height: '50px' }}
+              style={{ height: '64px' }}
             />
-            <div>
-              <h5 className="mb-0">ساداتھ کارپوریٹ</h5>
-              <strong>SADATH CORPORATE</strong>
-            </div>
           </div>
 
           {/* Right: Search, Profile, Cart */}

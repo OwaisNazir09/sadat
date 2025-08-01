@@ -1,4 +1,11 @@
 
-* {
+:root {
   font-family:sans-serif;
+  --gold-color: #cda436; /* Green */
+  --text-color: #333; /* Dark gray */
+    }
+
+.bg-topheader{
+  background:var(--gold-color);
+  padding:.6rem 0;
 }
