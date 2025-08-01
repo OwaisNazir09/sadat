@@ -5,26 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Slide images
 const slides = [
   {
-    // title: "TIMELESS ELEGANCE",
-    // subtitle: "Fragrance For Every Occasion",
-    // buttonText: "SHOP NOW"
     image: "/img/s1.webp",
   },
   {
-    // title: "SUMMER COLLECTION",
-    // subtitle: "Fresh Scents for Warm Days",
-    // buttonText: "EXPLORE",
     image: "/img/s2.jpeg",
   },
   {
-    // title: "LUXURY UNISEX",
-    // subtitle: "Scents That Defy Gender",
-    // buttonText: "DISCOVER",
     image: "/img/s3.jpeg",
   }
 ];
 
-// Product data
+// Product data - now with 13 products
 const products = [
   {
     id: 1,
@@ -124,15 +115,38 @@ const products = [
     discountPrice: 899,
     discountPercent: Math.round(((1250 - 899) / 1250) * 100),
     rating: 5
+  },
+  {
+    id: 12,
+    name: "Vanilla Sky",
+    image: "/img/products/p11.webp",
+    price: 1150,
+    discountPrice: 849,
+    discountPercent: Math.round(((1150 - 849) / 1150) * 100),
+    rating: 5
+  },
+  {
+    id: 13,
+    name: "Jasmine Whisper",
+    image: "/img/products/p12.webp",
+    price: 1350,
+    discountPrice: 999,
+    discountPercent: Math.round(((1350 - 999) / 1350) * 100),
+    rating: 5
   }
 ];
 
-// Utility to group products into chunks
-const chunkArray = (arr, size) =>
-  arr.reduce((acc, _, i) => (i % size ? acc : [...acc, arr.slice(i, i + size)]), []);
+// Utility to group products into chunks of 5
+const chunkArray = (arr, size) => {
+  const chunks = [];
+  for (let i = 0; i < arr.length; i += size) {
+    chunks.push(arr.slice(i, i + size));
+  }
+  return chunks;
+};
 
 function Home() {
-  const productChunks = chunkArray(products, 4);
+  const productChunks = chunkArray(products, 5);
 
   return (
     <div className="container-fluid p-0">
@@ -146,13 +160,6 @@ function Home() {
               alt={`Slide ${index + 1}`}
               style={{ height: '500px', objectFit: 'cover' }}
             />
-            {/* <Carousel.Caption className="d-flex flex-column justify-content-center h-100" style={{ top: 0 }}>
-              <div className="bg-dark bg-opacity-50 p-4 rounded">
-                <h4>{slide.title}</h4>
-                <h1 className="display-4">{slide.subtitle}</h1>
-                <button className="btn btn-primary mt-3">{slide.buttonText}</button>
-              </div>
-            </Carousel.Caption> */}
           </Carousel.Item>
         ))}
       </Carousel>
@@ -160,40 +167,56 @@ function Home() {
       {/* Product Carousel */}
       <div className="container my-5">
         <h2 className="text-center mb-4">Fragrance For Every Occasion</h2>
-        <p className='text-center'>Each fragrance crafted to complement unique essence</p>
-        <Carousel indicators={false}>
+        <p className='text-center mb-5'>Each fragrance crafted to complement unique essence</p>
+        
+        <Carousel indicators={false} wrap={true} interval={null}>
           {productChunks.map((group, idx) => (
             <Carousel.Item key={idx}>
-              <Row className="justify-content-center">
+              <Row className="justify-content-center g-4">
                 {group.map((product) => (
-                  <Col key={product.id} md={3} sm={6} xs={12} className="mb-4">
-                    <Card className="h-100 position-relative shadow-sm">
-                      <Card.Img
-                        variant="top"
-                        src={product.image}
-                        alt={product.name}
-                        style={{ height: '220px', objectFit: 'contain' }}
-                      />
+                  <Col key={product.id} lg={2} md={4} sm={6} xs={12} className="d-flex">
+                    <Card className="w-100 shadow-sm border-0">
+                      <div style={{ height: '200px', overflow: 'hidden' }}>
+                        <Card.Img
+                          variant="top"
+                          src={product.image}
+                          alt={product.name}
+                          className="img-fluid h-100 w-100"
+                          style={{ objectFit: 'contain', padding: '20px' }}
+                        />
+                      </div>
                       {product.discountPercent > 0 && (
                         <span className="badge bg-danger position-absolute top-0 start-0 m-2">
-                          Save {product.discountPercent}%
+                          {product.discountPercent}% OFF
                         </span>
                       )}
-                      <Card.Body className="text-center">
-                        <Card.Title className="fs-6 fw-bold">{product.name}</Card.Title>
-                        <div className="text-warning mb-1">
+                      <Card.Body className="text-center p-3">
+                        <Card.Title className="fs-6 fw-bold mb-1">{product.name}</Card.Title>
+                        <div className="text-warning mb-2">
                           {"★".repeat(product.rating)}{"☆".repeat(5 - product.rating)}
                         </div>
                         <div className="mb-1">
-                          <span className="fw-bold text-danger">₹{product.discountPrice}</span>{" "}
+                          <span className="fw-bold text-danger fs-5">₹{product.discountPrice}</span>{" "}
                           <small className="text-muted text-decoration-line-through">
                             ₹{product.price}
                           </small>
                         </div>
+                        <button className="btn btn-outline-dark btn-sm mt-2 w-100">
+                          Add to Cart
+                        </button>
                       </Card.Body>
                     </Card>
                   </Col>
                 ))}
+                
+                {/* Add empty columns if last group has less than 5 items to maintain layout */}
+                {group.length < 5 && 
+                  Array(5 - group.length).fill().map((_, i) => (
+                    <Col key={`empty-${i}`} lg={2} md={4} sm={6} xs={12} className="d-flex" style={{ visibility: 'hidden' }}>
+                      <Card className="w-100" style={{ border: 'none' }} />
+                    </Col>
+                  ))
+                }
               </Row>
             </Carousel.Item>
           ))}
