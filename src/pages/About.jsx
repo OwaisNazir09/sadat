@@ -252,14 +252,7 @@ const About = () => {
           
           <div className="container position-relative">
             <div className="py-5">
-              <nav className="mb-4">
-                <div className="d-flex align-items-center">
-                  <a href="/" className="text-white-50 text-decoration-none me-2">Home</a>
-                  <span className="text-white-50">/</span>
-                  <span className="text-white ms-2">About Us</span>
-                </div>
-              </nav>
-              
+             
               <div className="py-5">
                 <div className="row">
                   <div className="col-lg-8">

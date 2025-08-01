@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import store from './store';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import ScrollToTop from './services/components/ScrollToTop';
-import Navbar from './services/components/Navbar';
-import Footer from './services/components/Footer';
+import ScrollToTop from './pages/components/ScrollToTop';
+import Navbar from './pages/components/Navbar';
+import Footer from './pages/components/Footer';
 
 import Home from './pages/Home'; // Example page
 import About from './pages/About'; // Another example
